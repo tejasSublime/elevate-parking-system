@@ -36,3 +36,23 @@ model RequestUser {
   level     Int?
   createdAt DateTime @default(now())
 }
+
+model Employee {
+  id        Int      @id @default(autoincrement())
+  userName  String   @unique
+  emailID   String   @unique
+  password  String
+  Feeds     Feeds[]
+  createdAt DateTime @default(now())
+}
+
+model Feeds {
+  id         String   @id @default(uuid())
+  employeeId Int      @map("employee_id")
+  Employee   Employee @relation(fields: [employeeId], references: [id])
+  title      String
+  description String
+  image      String
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @default(now())
+}
